@@ -1,0 +1,20 @@
+{
+    "name": "legislation-package/array-to-xml",
+    "description": "Pacote responsavel em converter array para xml",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Claudio Alexssandro Lino",
+            "email": "c.lino@vhsys.com.br"
+        }
+    ],
+    "require": {
+        "phpoffice/phpspreadsheet": "^1.14"
+    },
+    "autoload": {
+        "psr-4": {
+            "VHSYS\\Utils\\": "src/"
+        }
+    }
+}
