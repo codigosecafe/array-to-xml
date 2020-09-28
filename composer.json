@@ -1,5 +1,5 @@
 {
-    "name": "legislation-package/array-to-xml",
+    "name": "codigosecafe/array-to-xml",
     "description": "Pacote responsavel em converter array para xml",
     "type": "library",
     "license": "MIT",

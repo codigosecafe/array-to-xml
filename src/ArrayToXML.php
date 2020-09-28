@@ -1,8 +1,6 @@
 <?php
 namespace VHSYS\Utils;
 
-
-
 use PhpOffice\PhpSpreadsheet\Shared\XMLWriter;
 
 /**
@@ -70,29 +68,36 @@ class ArrayToXML
             foreach ($data as $key => $val) {
                 //handle an attribute with elements
                 if ($key[0] == '@') {
-                    if(empty($val)) {
+                    if (empty($val)) {
                         continue;
                     }
                     $xml->writeAttribute(substr($key, 1), $val);
                 } else if ($key[0] == '%') {
-                    if (is_array($val)) $nonAttributes = $val;
-                    else $xml->text($val);
+                    if (is_array($val)) {$nonAttributes = $val;} else { $xml->text($val);}
                 } elseif ($key[0] == '#') {
-                    if (is_array($val)) $nonAttributes = $val;
-                    else {
+                    if (is_array($val)) {
+                        $nonAttributes = $val;
+                    } else {
                         $xml->startElement(substr($key, 1));
                         $xml->writeCData($val);
                         $xml->endElement();
                     }
                 } else if ($key[0] == "!") {
-                    if (is_array($val)) $nonAttributes = $val;
-                    else $xml->writeCData($val);
-                } //ignore normal elements
-                else $nonAttributes[$key] = $val;
+                    if (is_array($val)) {
+                        $nonAttributes = $val;
+                    } else {
+                        $xml->writeCData($val);
+                    }
+
+                } else {
+                    $nonAttributes[$key] = $val;
+                }
+
             }
             return $nonAttributes;
-        } else {
-            return $data};
+        }
+        return $data;
+
     }
 
     /**
@@ -118,7 +123,7 @@ class ArrayToXML
                 }
             } else if (is_array($value)) { //associative array
                 if (is_array($value) && array_key_exists('_visible', $value)) {
-                    if(!$value['_visible']) {
+                    if (!$value['_visible']) {
                         continue;
                     }
                     unset($value['_visible']);
@@ -136,6 +141,6 @@ class ArrayToXML
 
     protected function isAssoc($array)
     {
-        return (bool)count(array_filter(array_keys($array), 'is_string'));
+        return (bool) count(array_filter(array_keys($array), 'is_string'));
     }
 }
